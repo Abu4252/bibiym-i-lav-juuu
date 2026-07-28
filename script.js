@@ -211,7 +211,6 @@ function updateLoveCounter() {
 setInterval(updateLoveCounter, 1000);
 updateLoveCounter();
 
-
 // ==========================================
 // 6. YURAKLI KONVERT VA SEVGI MAKTUBI
 // ==========================================
@@ -232,7 +231,10 @@ function openEnvelope() {
 
     if (!isLetterOpened) {
         isLetterOpened = true;
-        let message = "Siz mening hayotimdagi eng buyuk mo'jizam va qalbimdagi yagona baxtimsiz. Har bir kunim siz bilan nurli va mazmunli. Robiyam, men sizni so'nggi nafasimgacha jonimdan ortiq sevaman! ❤️";
+        
+        // Maktub ichidagi matn va she'r
+        let message = "Siz mening hayotimdagi eng buyuk mo'jizam va qalbimdagi yagona baxtimsiz. Robiyam, men sizni so'nggi nafasimgacha jonimdan ortiq sevaman! ❤️\n\nSen ila bu ko'nglim shod bo'lsa kerak,\nHar on ko'rgim kelar seni negadir.\nShuning uchun isming-la uradi yurak,\nIshqiy xabarlarim tanho sengadir... 🫶🏻";
+        
         startTypewriter(message);
     }
 }
@@ -244,14 +246,19 @@ function startTypewriter(text) {
 
     function typeChar() {
         if (i < text.length) {
-            target.innerHTML += text.charAt(i);
+            let char = text.charAt(i);
+            // Qator tashlash (\n) belgisini HTML <br> ga aylantirish
+            if (char === '\n') {
+                target.innerHTML += '<br>';
+            } else {
+                target.innerHTML += char;
+            }
             i++;
-            setTimeout(typeChar, 40);
+            setTimeout(typeChar, 35);
         }
     }
     typeChar();
 }
-
 
 // ==========================================
 // 7. QOCHADIGAN "YO'Q" TUGMASI (10 MARTA)
