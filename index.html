@@ -3,141 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdulhodiy ❤️ Robiya Bibi | Mangu Abadiyat</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
-    <!-- Confetti kutubxonasi -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" defer></script>
-    <!-- Tashqi CSS fayl ulanishi -->
+    <title>Faqat Mening Bibiyim Uchun 💖</title>
+    <!-- CSS Fayl ulanishi -->
     <link rel="stylesheet" href="style.css">
+    <!-- Confetti kutubxonasi -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <!-- Jonli yulduzli fon -->
+    <!-- Jonli yulduzli va yurakli fon -->
     <div class="stars" id="starsContainer"></div>
+
+    <!-- FON MUSIQASI (Fayl nomi to'g'rilandi va autoplay moslashtirildi) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="assets/music/music.mp3.mp3" type="audio/mpeg">
+        <source src="assets/music/music.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- 1. INTRO KOD SO'RASH EKRANI -->
     <div id="lockScreen" class="screen">
         <div class="glass-card">
-            <h1>🔒 Faqat Mening Bibiym Uchun</h1>
-            <p style="font-size: 13px; color: #ffb199; margin-top: 5px;">Qalbimiz kalitini kiriting:</p>
+            <h1>🔒 Faqat Mening Bibiyim Uchun</h1>
+            <p style="color: #ffb199; font-size: 13px; margin-top: 5px;">Qalbimiz kalitini kiriting:</p>
             <input type="text" id="passCode" placeholder="abdulhodiy and robiya love">
             <button class="btn-romantic" onclick="checkCode()">Qalbimga kirish 💖</button>
-            <p id="errorMsg" style="color: #ffb199; font-size: 12px; margin-top: 10px;"></p>
+            <p id="errorMsg" style="color: #ff4d4d; font-size: 12px; margin-top: 10px;"></p>
         </div>
     </div>
 
-    <!-- ASOSIY SAYT QISMI -->
-    <div id="mainContent">
+    <!-- 2. ASOSIY SAYT QISMI -->
+    <div id="mainContent" style="display: none;">
         
-        <!-- Musiqa pleyeri (Sizning assets/music/music.mp3 faylingiz) -->
-        <audio id="bgMusic" loop>
-            <source src="assets/music/music.mp3.mp3" type="audio/mpeg">
-        </audio>
+        <!-- YURAK SLEYDSHOU QISMI (Katta va romantik) -->
+        <div class="slideshow-container">
+            <div class="slide fade">
+                <img src="assets/images/1.jpg" alt="Rasm 1" onerror="this.src='https://picsum.photos/800/600?random=1'">
+                <div class="slide-caption">Bizning Eng Shirin Damlarimiz ✨</div>
+            </div>
+            <div class="slide fade">
+                <img src="assets/images/2.jpg" alt="Rasm 2" onerror="this.src='https://picsum.photos/800/600?random=2'">
+                <div class="slide-caption">Cheksiz Sevgi va Mehr 💕</div>
+            </div>
+            <div class="slide fade">
+                <img src="assets/images/3.jpg" alt="Rasm 3" onerror="this.src='https://picsum.photos/800/600?random=3'">
+                <div class="slide-caption">Har Bir Soniyamiz Qadrli 🌹</div>
+            </div>
 
-        <!-- 4. LOVE COUNTER -->
+            <!-- Sleydshou tugmalari -->
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+
+        <!-- LOVE COUNTER (SEVGI TAYMERI) -->
         <section class="section">
-            <h2 style="font-family: 'Playfair Display'; color: #ff758c;">Bizning Abadiyatimiz</h2>
-            <p style="font-size: 12px; color: #ccc; margin-top: 5px;">03.03.2026 dan beri bir tanu bir jon urayotgan yuraklar:</p>
+            <h2 style="font-family: 'Playfair Display', serif; color: #ff758c;">Bizning Abadiyatimiz ⏳</h2>
+            <p style="color: #ccc; font-size: 12px; margin-top: 5px;">03.03.2026 dan beri birgamiz:</p>
+            
             <div class="counter-grid">
                 <div class="time-box"><span id="days">0</span><p>Kun</p></div>
                 <div class="time-box"><span id="hours">0</span><p>Soat</p></div>
                 <div class="time-box"><span id="minutes">0</span><p>Daqiqa</p></div>
                 <div class="time-box"><span id="seconds">0</span><p>Soniya</p></div>
             </div>
-            
-            <!-- Widget pleyer -->
-            <div class="music-player">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div class="vinyl" id="vinylIcon"></div>
-                    <div style="text-align: left;">
-                        <p style="font-size: 13px; font-weight: 600;">Bizning Qo'shig'imiz</p>
-                        <p style="font-size: 11px; color: #aaa;">Abdulhodiy & Robiya</p>
-                    </div>
-                </div>
-                <button onclick="toggleMusic()" id="playPauseBtn" style="background: #ff416c; border: none; color: white; padding: 8px 15px; border-radius: 20px; font-size: 12px; cursor: pointer;">Play 🎶</button>
-            </div>
         </section>
 
-        <!-- 5. BIZNING HIKOYAMIZ -->
-        <section class="section">
-            <h2 style="font-family: 'Playfair Display'; color: #ff758c;">Bizning Ertagimiz</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h4>❤️ Taqdirimiz kesishgan kun</h4>
-                    <p>O'sha kundan boshlab olamim o'zgacha nurlandi...</p>
-                </div>
-                <div class="timeline-item">
-                    <h4>🌹 Ilk unutilmas suhbat</h4>
-                    <p>Har bir so'zing qalbimning eng tubiga muhrlangan lahza...</p>
-                </div>
-                <div class="timeline-item">
-                    <h4>💍 Mangu birga bo'lish ahd-u paymoni</h4>
-                    <p>Sen mening bu dunyodagi eng buyuk mukofotimsan...</p>
+        <!-- MUSIQA PLEYERI WIDGETI -->
+        <div class="music-player">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="vinyl" id="vinylIcon"></div>
+                <div style="text-align: left;">
+                    <p style="font-size: 13px; font-weight: 600; margin: 0; color: #fff;">Bizning Qo'shig'imiz ❤️</p>
+                    <p style="font-size: 11px; color: #aaa; margin: 0;">Abdulhodiy & Robiya</p>
                 </div>
             </div>
-        </section>
-
-        <!-- 6. POLAROID GALLERY (Sizning 6 ta rasmingiz) -->
-        <section class="section">
-            <h2 style="font-family: 'Playfair Display'; color: #ff758c;">Mangu Xotiralarimiz</h2>
-            <div class="gallery-grid">
-                <div class="polaroid">
-                    <img src="assets/images/r1.jpg" alt="Memory">
-                    <span>Jannatim ✨</span>
-                </div>
-                <div class="polaroid">
-                    <img src="assets/images/r2.jpg" alt="Memory">
-                    <span>Asalim 💖</span>
-                </div>
-                <div class="polaroid">
-                    <img src="assets/images/r3.jpg" alt="Memory">
-                    <span>Baxtim 🥰</span>
-                </div>
-                <div class="polaroid">
-                    <img src="assets/images/r4.jpg" alt="Memory">
-                    <span>Yulduzim ⭐</span>
-                </div>
-                <div class="polaroid">
-                    <img src="assets/images/r5.jpg" alt="Memory">
-                    <span>Ko'zlarim nuri 🌸</span>
-                </div>
-                <div class="polaroid">
-                    <img src="assets/images/r6.jpg" alt="Memory">
-                    <span>Abadiy birgamiz 💍</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. SEVGI MAKTUBI (Qalbni titratuvchi so'zlar) -->
-        <section class="section">
-            <h2 style="font-family: 'Playfair Display'; color: #ff758c; margin-bottom: 15px;">Mening Go'zal Bibiymga</h2>
-            <div class="letter-box">
-                "Mehribonim, ko'zlarining tubidagi o'sha beg'ubor tabassumni ko'rsam, butun dunyodagi bor g'am-tashvishlar unut bo'ladi. Sen mening faqatgina sevgilim emas, sen mening hayotimning ma'nosi, kelajagimning eng porloq quyoshisan. Sendan o'zga yor, sendan o'zga baxtni tasavvur ham qilolmayman. Senga bo'lgan sevgim vaqt va makondan yiroq, u abadiy va o'lmasdir..."
-            </div>
-        </section>
-
-        <!-- 9. PROPOSAL -->
-        <section class="section">
-            <h2 style="font-family: 'Playfair Display'; color: #ffd700; font-size: 22px;">💍 Robiya, bir umrga mening jufti halolim, malikam bo'lasanmi?</h2>
-            <div class="proposal-buttons">
-                <button id="yesBtn" onclick="sayYes()">HA, MINBA’D MANGU BIRGAMIZ! 💖</button>
-                <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">Yo'q ❌</button>
-            </div>
-            <p id="noCounterText" style="font-size: 12px; color: #ffb199; margin-top: 15px;"></p>
-        </section>
-
-        <!-- 15. MAXSUS YAKUN -->
-        <section class="section final-screen" id="finalBox" style="display: none;">
-            <div class="big-heart">💖</div>
-            <h2>“So’nggi nafasimgacha seni sevaman, Robiyam”</h2>
-            <p style="font-size: 14px; color: #ccc; margin-top: 10px;">Sen mening taqdirga yozilgan eng go'zal ertagimsan.</p>
-            <div class="signature">Abdulhodiy ❤️ Robiya Bibi<br>Forever 03.03.2026</div>
-        </section>
+            <button id="playBtn" class="btn-play" onclick="toggleAudio()">⏸</button>
+        </div>
 
     </div>
 
-    <!-- Tashqi JS fayl ulanishi -->
+    <!-- JS Fayl ulanishi -->
     <script src="script.js"></script>
 </body>
 </html>
