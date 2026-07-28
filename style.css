@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.glass-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    max-width: 350px;
+    width: 90%;
+}
+
+.glass-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    outline: none;
+}
+
+.glass-box button, .proposal-buttons button {
+    background: #fff;
+    color: #ff416c;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.glass-box button:hover {
+    background: #ffeb3b;
+    transform: scale(1.05);
+}
+
+.error {
+    color: #ffeb3b;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Asosiy ekran dizayni */
+#mainScreen {
+    overflow-y: auto;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.content-box {
+    max-width: 450px;
+    width: 100%;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.audio-notice {
+    font-size: 14px;
+    color: #ffeb3b;
+    margin-bottom: 15px;
+}
+
+.letter-box {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.gallery {
+    margin-bottom: 20px;
+}
+
+.photo-slider {
+    width: 100%;
+    height: 220px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.photo-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.photo-slider img.active-photo {
+    opacity: 1;
+}
+
+.counter-box {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+#timer {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffeb3b;
+    margin: 8px 0;
+}
+
+.sub-text {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.proposal-box {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.proposal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    position: relative;
+}
+
+#yesBtn {
+    background: #2ed573;
+    color: white;
+}
+
+#noBtn {
+    background: #ff4757;
+    color: white;
+    transition: transform 0.1s ease;
+}
+
+/* Tushayotgan yuraklar */
+.falling-heart {
+    position: fixed;
+    top: -20px;
+    font-size: 20px;
+    z-index: 1000;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(105vh) rotate(360deg);
+    }
+}
