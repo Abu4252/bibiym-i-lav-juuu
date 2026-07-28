@@ -3,118 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdulhodiy ❤️ Robiya Bibi — Forever</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts & Confetti -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Abdulhodiy ❤️ Robiya Bibi — Forever Love</title>
+    
+    <!-- Shriflar va Kutubxonalar -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Canvas Effektlari (Yulduzlar, Sakura, Kursor izlari va Feyerverk) -->
+    <!-- 3D VA PARTICLES CANVAS SYSTEM -->
     <canvas id="bgCanvas"></canvas>
+    <div id="heartTrailContainer"></div>
 
-    <!-- FON MUSIQASI -->
+    <!-- AUDIO PLAYER -->
     <audio id="bgMusic" loop preload="auto">
         <source src="assets/music/music.mp3.mp3" type="audio/mpeg">
         <source src="assets/music/music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 1. INTRO / KOD SO'RASH EKRANI -->
-    <div id="lockScreen" class="screen-overlay">
-        <div class="glass-card main-lock">
-            <div class="heart-pulse">💖</div>
-            <h2>Faqat Mening Bibiyim Uchun</h2>
-            <p class="subtitle">Qalbimiz kalitini kiriting:</p>
-            <div class="input-wrapper">
+    <!-- 1. INTRO / LOCK SCREEN (KOD SO'RASH EKRANI) -->
+    <div id="lockScreen" class="intro-screen">
+        <div class="glass-container lock-card">
+            <div class="glowing-heart">💖</div>
+            <h1 class="romantic-font">Faqat Mening Bibiyim Uchun</h1>
+            <p class="intro-subtitle">Qalbimiz kalitini kiriting:</p>
+            
+            <div class="input-box">
                 <input type="text" id="passCode" placeholder="abdulhodiy and robiya love" autocomplete="off">
             </div>
-            <button class="btn-romantic" onclick="checkCode()">Qalbimga kirish 💖</button>
-            <p id="errorMsg" class="error-msg"></p>
+            
+            <button class="btn-premium" onclick="checkCode()">Qalbimga kirish 💖</button>
+            <p id="errorMsg" class="error-text"></p>
         </div>
     </div>
 
-    <!-- 2. ASOSIY SAYT -->
-    <div id="mainContent" style="display: none;">
+    <!-- ASOSIY SAYT QISMI -->
+    <div id="mainContent" class="main-wrapper" style="display: none;">
 
-        <!-- HERO SECTION -->
-        <section class="hero-section">
-            <h1 class="glow-title">Abdulhodiy ❤️ Robiya</h1>
-            <p class="hero-sub">03.03.2026 dan beri abadiy birga...</p>
-        </section>
+        <!-- HERO BANNER -->
+        <header class="hero-banner">
+            <h1 class="main-title romantic-font">Abdulhodiy ❤️ Robiya</h1>
+            <p class="tagline">"Soniyalardan abadiyatgacha birga..."</p>
+            <div class="scroll-down-indicator">
+                <span>Pastroqqa tushing</span>
+                <div class="arrow-down">↓</div>
+            </div>
+        </header>
 
-        <!-- SLEYDSHOU / GALLERY -->
-        <section class="section-container">
-            <h2 class="section-title">✨ Bizning Eng Shirin Damlarimiz</h2>
-            <div class="slideshow-box">
-                <div class="slide fade">
-                    <img src="assets/images/1.jpg" alt="Rasm 1" onerror="this.src='https://picsum.photos/800/500?random=10'">
-                    <div class="caption">Har bir tabassuming men uchun baxt 💕</div>
+        <!-- 2. LOVE COUNTER -->
+        <section class="section-block">
+            <div class="glass-container">
+                <h2 class="section-heading">⏳ Bizning Abadiyatimiz</h2>
+                <p class="sub-heading">03.03.2026 dan beri birgamiz:</p>
+                <div class="counter-timer">
+                    <div class="timer-box"><span id="days">0</span><label>Kun</label></div>
+                    <div class="timer-box"><span id="hours">0</span><label>Soat</label></div>
+                    <div class="timer-box"><span id="minutes">0</span><label>Daqiqa</label></div>
+                    <div class="timer-box"><span id="seconds">0</span><label>Soniya</label></div>
                 </div>
-                <div class="slide fade">
-                    <img src="assets/images/2.jpg" alt="Rasm 2" onerror="this.src='https://picsum.photos/800/500?random=20'">
-                    <div class="caption">Qalbim kaliti faqat sizda 🌹</div>
-                </div>
-                <div class="slide fade">
-                    <img src="assets/images/3.jpg" alt="Rasm 3" onerror="this.src='https://picsum.photos/800/500?random=30'">
-                    <div class="caption">Soniyalardan abadiyatgacha... ✨</div>
-                </div>
-                <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-                <a class="next" onclick="changeSlide(1)">&#10095;</a>
             </div>
         </section>
 
-        <!-- LOVE COUNTER -->
-        <section class="section-container">
-            <h2 class="section-title">⏳ Bizning Abadiyatimiz</h2>
-            <div class="counter-grid">
-                <div class="time-card"><span id="days">0</span><p>Kun</p></div>
-                <div class="time-card"><span id="hours">0</span><p>Soat</p></div>
-                <div class="time-card"><span id="minutes">0</span><p>Daqiqa</p></div>
-                <div class="time-card"><span id="seconds">0</span><p>Soniya</p></div>
+        <!-- 3. ROMANTIC SLEYDSHOU (KATTA GALEREYA) -->
+        <section class="section-block">
+            <h2 class="section-heading">✨ Bizning Eng Shirin Damlarimiz</h2>
+            <div class="slideshow-wrapper glass-container">
+                <div class="slide-item fade">
+                    <img src="assets/images/1.jpg" alt="Rasm 1" onerror="this.src='https://picsum.photos/1000/600?random=1'">
+                    <div class="slide-caption">Har bir tabassumingiz — men uchun baxt manbai 💕</div>
+                </div>
+                <div class="slide-item fade">
+                    <img src="assets/images/2.jpg" alt="Rasm 2" onerror="this.src='https://picsum.photos/1000/600?random=2'">
+                    <div class="slide-caption">Dunyodagi eng go'zal va begubor qalb egasiga 🌹</div>
+                </div>
+                <div class="slide-item fade">
+                    <img src="assets/images/3.jpg" alt="Rasm 3" onerror="this.src='https://picsum.photos/1000/600?random=3'">
+                    <div class="slide-caption">Siz bilan o'tgan har bir soniya beqiyos... ✨</div>
+                </div>
+
+                <a class="nav-btn prev" onclick="changeSlide(-1)">&#10094;</a>
+                <a class="nav-btn next" onclick="changeSlide(1)">&#10095;</a>
             </div>
         </section>
 
-        <!-- LOVE LETTER (OCHILADIGAN KONVERT) -->
-        <section class="section-container">
-            <h2 class="section-title">💌 Yurakdan Chiqqan Satrlar</h2>
-            <div class="envelope-wrapper" onclick="openEnvelope(this)">
+        <!-- 4. LOVE STORY (TIMELINE / HIKOYAMIZ) -->
+        <section class="section-block">
+            <h2 class="section-heading">📖 Bizning Hikoyamiz</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="glass-container card-content">
+                        <h3>❤️ Tanishgan Kunimiz</h3>
+                        <p>Hayotimning eng chiroyli va mazmunli sahifasi ochilgan kun.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="glass-container card-content">
+                        <h3>🌹 Birinchi Suhbat</h3>
+                        <p>Qalbimda iliqlik va sizga bo'lgan cheksiz mehr uyg'ongan an.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="glass-container card-content">
+                        <h3>💍 Nikoh va Va'da</h3>
+                        <p>Bir umrga qo'llaringizdan tutib, faqat sizni baxtli qilish ahdi.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="glass-container card-content">
+                        <h3>🤲 Kelajagimiz</h3>
+                        <p>Jannatlarda ham birga bo'lishga qilingan samimiy duolarimiz.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. OCHILADIGAN KONVERT & SEVGI MAKTUBI -->
+        <section class="section-block">
+            <h2 class="section-heading">💌 Yurakdan Chiqqan Satrlar</h2>
+            <div class="envelope-container" onclick="toggleEnvelope(this)">
                 <div class="envelope">
-                    <div class="front flap"></div>
-                    <div class="front pocket"></div>
+                    <div class="flap"></div>
+                    <div class="pocket"></div>
                     <div class="letter">
-                        <p id="typewriterText"></p>
+                        <div class="letter-content">
+                            <p id="typewriterText"></p>
+                        </div>
                     </div>
                     <div class="heart-seal">❤️</div>
                 </div>
             </div>
         </section>
 
-        <!-- PROPOSAL (QOCHADIGAN TUGMA) -->
-        <section class="section-container proposal-box">
-            <h2>Menga turmushga chiqasanmi? 💍</h2>
-            <div class="proposal-buttons">
-                <button class="btn-yes" onclick="acceptProposal()">Ha! ❤️</button>
-                <button class="btn-no" id="btnNo" onmouseover="dodgeButton()" onclick="dodgeButton()">Yo'q 💔</button>
+        <!-- 6. PROPOSAL (QOCHADIGAN TUGMA) -->
+        <section class="section-block">
+            <div class="glass-container proposal-card">
+                <h2 class="romantic-font proposal-title">Menga turmushga chiqasanmi? 💍</h2>
+                <div class="proposal-buttons">
+                    <button class="btn-yes" onclick="acceptProposal()">Ha! ❤️</button>
+                    <button class="btn-no" id="btnNo" onmouseover="dodgeButton()" onclick="dodgeButton()">Yo'q 💔</button>
+                </div>
             </div>
         </section>
 
-        <!-- YAKUN -->
-        <footer class="final-footer">
-            <div class="beating-heart-giant">💗</div>
-            <p class="final-text">"So'nggi nafasimgacha seni sevaman..."</p>
-            <p class="final-names">Abdulhodiy ❤️ Robiya Bibi</p>
+        <!-- 7. MAXSUS YAKUN -->
+        <footer class="final-section">
+            <div class="beating-heart-huge">💗</div>
+            <h2 class="final-quote">"So'nggi nafasimgacha seni sevaman..."</h2>
+            <p class="final-signature romantic-font">Abdulhodiy ❤️ Robiya Bibi</p>
             <p class="final-date">Forever — 03.03.2026</p>
         </footer>
 
-        <!-- MUSIQA PLAYER WIDGET -->
-        <div class="music-widget">
-            <div class="vinyl-disc" id="vinyl"></div>
-            <div class="track-info">
-                <span class="track-title">Bizning Qo'shig'imiz ❤️</span>
-                <span class="track-artist">Abdulhodiy & Robiya</span>
+        <!-- MUSIC PLAYER WIDGET -->
+        <div class="music-player-widget">
+            <div class="vinyl-record" id="vinylRecord"></div>
+            <div class="song-details">
+                <span class="song-title">Bizning Qo'shig'imiz ❤️</span>
+                <span class="artist-name">Abdulhodiy & Robiya</span>
             </div>
-            <button class="btn-play" id="playBtn" onclick="toggleAudio()">⏸</button>
+            <button class="play-pause-btn" id="playBtn" onclick="toggleAudio()">⏸</button>
         </div>
 
     </div>
