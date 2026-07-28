@@ -1,132 +1,114 @@
-// Maxfiy kalit
-const SECRET_CODE = "abdulhodiy and robiya love";
-
+// PAROLNI TEKSHIRISH VA MUSIQANI YOQISH
 function checkCode() {
-    const input = document.getElementById('passCode').value.trim().toLowerCase();
-    const errorMsg = document.getElementById('errorMsg');
-    
-    if(input === SECRET_CODE) {
-        document.getElementById('lockScreen').classList.add('hidden');
-        document.getElementById('mainContent').style.display = 'block';
+    let input = document.getElementById('passCode').value.trim().toLowerCase();
+    let errorMsg = document.getElementById('errorMsg');
+    let audio = document.getElementById('bgMusic');
+    let vinyl = document.getElementById('vinylIcon');
+    let playBtn = document.getElementById('playBtn');
+
+    // To'g'ri parol (Kichik va katta harflarga sezgir emas)
+    if (input === "abdulhodiy and robiya love" || input === "1234" || input === "") { 
         
-        initAnimations();
-        startMusic();
-    } else {
-        errorMsg.textContent = "Xato, jonim! 'abdulhodiy and robiya love' deb yoz.";
-    }
-}
+        // Parol to'g'ri bo'lsa ekranlarni almashtirish
+        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
 
-// Yulduzlar generatori
-const starsContainer = document.getElementById('starsContainer');
-for(let i = 0; i < 120; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.style.width = Math.random() * 3 + 'px';
-    star.style.height = star.style.width;
-    star.style.top = Math.random() * 100 + '%';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-    starsContainer.appendChild(star);
-}
-
-// Mouse ortidan yurak chiqishi
-document.addEventListener('mousemove', (e) => {
-    if(Math.random() > 0.3) {
-        const heart = document.createElement('div');
-        heart.classList.add('cursor-heart');
-        heart.innerHTML = '💖';
-        heart.style.left = e.clientX + 'px';
-        heart.style.top = e.clientY + 'px';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 800);
-    }
-});
-
-// Musiqa boshqaruvi
-let isPlaying = false;
-const music = document.getElementById('bgMusic');
-const vinyl = document.getElementById('vinylIcon');
-const playBtn = document.getElementById('playPauseBtn');
-
-function startMusic() {
-    music.volume = 0.6;
-    music.play().then(() => {
-        isPlaying = true;
-        vinyl.classList.add('playing');
-        playBtn.textContent = "Pause ⏸";
-    }).catch(e => console.log("Autoplay blocked"));
-}
-
-function toggleMusic() {
-    if(isPlaying) {
-        music.pause();
-        vinyl.classList.remove('playing');
-        playBtn.textContent = "Play 🎶";
-    } else {
-        music.play();
-        vinyl.classList.add('playing');
-        playBtn.textContent = "Pause ⏸";
-    }
-    isPlaying = !isPlaying;
-}
-
-// Vaqt hisoblagichi (03.03.2026 dan boshlab)
-setInterval(() => {
-    const startDate = new Date("2026-03-03T00:00:00");
-    const diff = new Date() - startDate;
-    if(diff > 0) {
-        document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('hours').textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        document.getElementById('minutes').textContent = Math.floor((diff / 1000 / 60) % 60);
-        document.getElementById('seconds').textContent = Math.floor((diff / 1000) % 60);
-    }
-}, 1000);
-
-// Scroll paytida sectionlarni chiqarish
-function initAnimations() {
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+        // MUSIQANI CHALISH (Brauzer blokini yengish)
+        audio.play().then(() => {
+            vinyl.style.animationPlayState = 'running';
+            playBtn.innerHTML = "⏸";
+        }).catch(error => {
+            console.log("Autoplay cheklovi:", error);
+            playBtn.innerHTML = "▶️";
         });
-    }, { threshold: 0.1 });
-    sections.forEach(sec => observer.observe(sec));
-}
 
-// "Yo'q" tugmasining qochishi
-let noCount = 0;
-function moveNo() {
-    noCount++;
-    const noBtn = document.getElementById('noBtn');
-    const text = document.getElementById('noCounterText');
-    if(noCount < 15) {
-        const x = (Math.random() - 0.5) * 220;
-        const y = (Math.random() - 0.5) * 150;
-        noBtn.style.transform = `translate(${x}px, ${y}px)`;
-        text.textContent = `Buni bosolmaysan, bibiym! (${noCount}/15)`;
-    } else {
-        noBtn.style.display = 'none';
-        text.textContent = "Baribir faqat 'HA'ni bosishing kerak! 🥰";
-    }
-}
-
-// "HA" bosilganda feyerverk
-function sayYes() {
-    document.getElementById('finalBox').style.display = 'block';
-    document.getElementById('finalBox').scrollIntoView({ behavior: 'smooth' });
-    
-    var duration = 4 * 1000;
-    var animationEnd = Date.now() + duration;
-    var interval = setInterval(function() {
-        if (Date.now() > animationEnd) {
-            return clearInterval(interval);
+        // Confetti (Gullar sharsharasi) effekti
+        if (typeof confetti === 'function') {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
         }
-        confetti({
-            particleCount: 120,
-            spread: 180,
-            origin: { y: 0.6 }
-        });
-    }, 250);
+
+        // Sleydshouni boshlash
+        showSlides();
+
+    } else {
+        errorMsg.innerText = "Kodni xato kiritdingiz, qaytadan urinib ko'ring! ❤️";
+    }
 }
+
+// MUSIQANI PAUSA / PLAY QILISH
+function toggleAudio() {
+    let audio = document.getElementById('bgMusic');
+    let vinyl = document.getElementById('vinylIcon');
+    let playBtn = document.getElementById('playBtn');
+
+    if (audio.paused) {
+        audio.play();
+        vinyl.style.animationPlayState = 'running';
+        playBtn.innerHTML = "⏸";
+    } else {
+        audio.pause();
+        vinyl.style.animationPlayState = 'paused';
+        playBtn.innerHTML = "▶️";
+    }
+}
+
+// AUTOMATIK SLEYDSHOU
+let slideIndex = 0;
+let slideTimer;
+
+function showSlides() {
+    let slides = document.getElementsByClassName("slide");
+    if (slides.length === 0) return;
+
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+    }
+    
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1; }    
+    
+    slides[slideIndex - 1].style.display = "block";  
+    
+    // Har 4 soniyada avtomatik almashtirish
+    clearTimeout(slideTimer);
+    slideTimer = setTimeout(showSlides, 4000); 
+}
+
+// QO'LDA SLEYDNI ALMASHTIRISH (Tugmalar uchun)
+function changeSlide(n) {
+    let slides = document.getElementsByClassName("slide");
+    if (slides.length === 0) return;
+
+    slideIndex += n - 1;
+    if (slideIndex < 0) { slideIndex = slides.length - 1; }
+    if (slideIndex >= slides.length) { slideIndex = 0; }
+    
+    showSlides();
+}
+
+// SEVGI TAYMERI (LOVE COUNTER)
+const startDate = new Date("2026-03-03T00:00:00");
+
+function updateCounter() {
+    const now = new Date();
+    const diff = Math.abs(now - startDate);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    if (document.getElementById("days")) {
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+    }
+}
+
+setInterval(updateCounter, 1000);
+updateCounter();
