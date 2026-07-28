@@ -2,101 +2,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-    user-select: none;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    background: radial-gradient(circle at center, #1a0011 0%, #0d0006 100%);
+    background-color: #0d0614;
     color: #fff;
-    overflow-x: hidden;
-    height: 100vh;
-}
-
-/* 1. INTRO & LOADING */
-.screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(13, 0, 6, 0.95);
-    backdrop-filter: blur(20px);
-    z-index: 10000;
-    transition: opacity 1s ease, visibility 1s ease;
+    overflow-x: hidden;
 }
 
-.screen.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 75, 108, 0.3);
-    padding: 40px 30px;
-    border-radius: 30px;
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(255, 65, 108, 0.2);
-    max-width: 400px;
-    width: 90%;
-    animation: floatCard 4s ease-in-out infinite;
-}
-
-@keyframes floatCard {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-.glass-card h1 {
-    font-family: 'Playfair Display', serif;
-    color: #ff758c;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-.glass-card input {
-    width: 100%;
-    padding: 14px;
-    margin: 20px 0;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    color: white;
-    text-align: center;
-    font-size: 14px;
-    outline: none;
-    transition: 0.3s;
-}
-
-.glass-card input:focus {
-    border-color: #ff416c;
-    box-shadow: 0 0 15px rgba(255, 65, 108, 0.5);
-}
-
-.btn-romantic {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    color: white;
-    border: none;
-    padding: 14px 35px;
-    border-radius: 30px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 5px 20px rgba(255, 65, 108, 0.5);
-    transition: 0.3s;
-}
-
-.btn-romantic:hover {
-    transform: scale(1.08);
-    box-shadow: 0 8px 25px rgba(255, 65, 108, 0.8);
-}
-
-/* 3. JONLI FON */
+/* Yulduzli Fon */
 .stars {
     position: fixed;
     top: 0;
@@ -104,275 +23,202 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
 }
 
-.star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle var(--duration) infinite ease-in-out;
-}
-
-@keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.2); }
-}
-
-/* Mouse izidan chiqadigan yurak */
-.cursor-heart {
-    position: fixed;
-    font-size: 16px;
-    pointer-events: none;
-    z-index: 99999;
-    animation: cursorFade 0.8s forwards;
-}
-
-@keyframes cursorFade {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: translateY(-40px) scale(1.5); opacity: 0; }
-}
-
-/* ASOSIY KONTENT */
-#mainContent {
-    display: none;
-    position: relative;
-    z-index: 10;
-    max-width: 600px;
-    margin: 0 auto;
+.screen {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
+    z-index: 10;
 }
 
-.section {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 25px;
+/* Glassmorphism Karta */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
     padding: 30px;
-    margin-bottom: 30px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s ease, transform 1s ease;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 4. LOVE COUNTER */
-.counter-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin: 20px 0;
-}
-
-.time-box {
-    background: rgba(255, 255, 255, 0.07);
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 75, 108, 0.2);
-}
-
-.time-box span {
-    display: block;
-    font-size: 22px;
-    font-weight: bold;
-    color: #ffd700;
-}
-
-.time-box p {
-    font-size: 11px;
-    color: #ffb199;
-    margin-top: 4px;
-}
-
-/* 5. TIMELINE */
-.timeline {
-    position: relative;
-    margin-top: 20px;
-    text-align: left;
-    border-left: 2px dashed #ff416c;
-    padding-left: 20px;
-    margin-left: 10px;
-}
-
-.timeline-item {
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.timeline-item::before {
-    content: '💖';
-    position: absolute;
-    left: -29px;
-    top: 0;
-    font-size: 14px;
-    background: #1a0011;
-    border-radius: 50%;
-}
-
-.timeline-item h4 {
+.glass-card h1 {
+    font-size: 18px;
     color: #ff758c;
-    font-size: 16px;
 }
 
-.timeline-item p {
-    font-size: 13px;
-    color: #ccc;
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border: 1px solid #ff758c;
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+    text-align: center;
+    outline: none;
 }
 
-/* 6. POLAROID GALLERY (6 ta rasm uchun) */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.polaroid {
-    background: white;
-    padding: 10px 10px 25px 10px;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transform: rotate(-2deg);
+.btn-romantic {
+    background: linear-gradient(45deg, #ff758c, #ff7eb3);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
     transition: 0.3s;
 }
 
-.polaroid:nth-child(even) {
-    transform: rotate(2deg);
+.btn-romantic:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4);
 }
 
-.polaroid:hover {
-    transform: scale(1.05) rotate(0deg);
-    z-index: 5;
+/* SLEYDSHOU STILARI (Katta va Chiroyli) */
+.slideshow-container {
+    max-width: 700px;
+    width: 90vw;
+    position: relative;
+    margin: 20px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(255, 117, 140, 0.2);
+    border: 2px solid rgba(255, 117, 140, 0.3);
 }
 
-.polaroid img {
+.slide {
+    display: none;
+    position: relative;
+}
+
+.slide img {
     width: 100%;
-    height: 140px;
+    height: 450px;
     object-fit: cover;
-    border-radius: 3px;
-}
-
-.polaroid span {
     display: block;
-    margin-top: 8px;
-    color: #333;
-    font-family: 'Great Vibes', cursive;
-    font-size: 20px;
 }
 
-/* 7. MUSIC PLAYER */
-.music-player {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 12px 20px;
-    border-radius: 50px;
-    margin-top: 15px;
-    border: 1px solid rgba(255,255,255,0.15);
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: #fff;
+    text-align: center;
+    padding: 20px 10px 10px 10px;
+    font-size: 16px;
+    font-weight: 500;
 }
 
-.vinyl {
-    width: 40px;
-    height: 40px;
-    background: #111;
+/* Sleydshou tugmalari */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.3s;
     border-radius: 50%;
-    border: 3px dashed #ff416c;
-    animation: rotateVinyl 3s linear infinite paused;
+    user-select: none;
+    background: rgba(0,0,0,0.4);
 }
 
-.vinyl.playing {
-    animation-play-state: running;
+.next { right: 10px; }
+.prev { left: 10px; }
+
+.prev:hover, .next:hover {
+    background: #ff758c;
 }
 
-@keyframes rotateVinyl {
-    to { transform: rotate(360deg); }
+.fade {
+    animation: fadeAnim 1.2s ease-in-out;
 }
 
-/* 8. SEVGI MAKTUBI */
-.letter-box {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 15px;
-    line-height: 1.8;
-    color: #fce4ec;
-    text-align: left;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 20px;
-    border-radius: 15px;
-    border-left: 3px solid #ff416c;
+@keyframes fadeAnim {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
 }
 
-/* 9. PROPOSAL */
-.proposal-buttons {
+/* TAYMER STILARI */
+.section {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.counter-grid {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 25px;
-    position: relative;
-    min-height: 60px;
-    flex-wrap: wrap;
-}
-
-#yesBtn {
-    background: linear-gradient(135deg, #00b09b, #96c93d);
-    padding: 12px 25px;
-    border-radius: 30px;
-    color: white;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,176,155,0.4);
-    font-size: 13px;
-}
-
-#noBtn {
-    background: linear-gradient(135deg, #cb2d3e, #ef473a);
-    padding: 12px 25px;
-    border-radius: 30px;
-    color: white;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute;
-    transition: 0.1s ease;
-    box-shadow: 0 5px 15px rgba(203,45,62,0.4);
-    font-size: 13px;
-}
-
-/* 15. MAXSUS YAKUN */
-.final-screen {
-    text-align: center;
-    padding: 40px 20px;
-}
-
-.big-heart {
-    font-size: 70px;
-    animation: heartBeat 1.2s infinite;
-    margin-bottom: 20px;
-}
-
-@keyframes heartBeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.25); }
-}
-
-.final-screen h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    color: #ffd700;
-    margin-bottom: 10px;
-}
-
-.signature {
-    font-family: 'Great Vibes', cursive;
-    font-size: 34px;
-    color: #ff758c;
     margin-top: 15px;
+}
+
+.time-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 117, 140, 0.2);
+    padding: 10px 15px;
+    border-radius: 12px;
+    min-width: 65px;
+}
+
+.time-box span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff758c;
+}
+
+.time-box p {
+    font-size: 10px;
+    color: #aaa;
+}
+
+/* MUSIQA WIDGETI */
+.music-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(15, 10, 25, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid #ff758c;
+    padding: 10px 18px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    z-index: 100;
+}
+
+.vinyl {
+    width: 32px;
+    height: 32px;
+    background: radial-gradient(circle, #000 30%, #333 31%, #333 60%, #ff758c 61%);
+    border-radius: 50%;
+    animation: spin 3s linear infinite;
+    animation-play-state: paused;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+.btn-play {
+    background: #ff758c;
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
 }
