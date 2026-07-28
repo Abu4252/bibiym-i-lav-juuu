@@ -55,7 +55,7 @@ body {
 .glass-card h1 {
     font-family: 'Playfair Display', serif;
     color: #ff758c;
-    font-size: 26px;
+    font-size: 24px;
     margin-bottom: 15px;
 }
 
@@ -68,7 +68,7 @@ body {
     border-radius: 15px;
     color: white;
     text-align: center;
-    font-size: 15px;
+    font-size: 14px;
     outline: none;
     transition: 0.3s;
 }
@@ -225,7 +225,7 @@ body {
     color: #ccc;
 }
 
-/* 6. POLAROID GALLERY */
+/* 6. POLAROID GALLERY (6 ta rasm uchun) */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -299,7 +299,7 @@ body {
 .letter-box {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.8;
     color: #fce4ec;
     text-align: left;
@@ -313,26 +313,28 @@ body {
 .proposal-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin-top: 25px;
     position: relative;
     min-height: 60px;
+    flex-wrap: wrap;
 }
 
 #yesBtn {
     background: linear-gradient(135deg, #00b09b, #96c93d);
-    padding: 12px 35px;
+    padding: 12px 25px;
     border-radius: 30px;
     color: white;
     border: none;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0,176,155,0.4);
+    font-size: 13px;
 }
 
 #noBtn {
     background: linear-gradient(135deg, #cb2d3e, #ef473a);
-    padding: 12px 35px;
+    padding: 12px 25px;
     border-radius: 30px;
     color: white;
     border: none;
@@ -341,6 +343,7 @@ body {
     position: absolute;
     transition: 0.1s ease;
     box-shadow: 0 5px 15px rgba(203,45,62,0.4);
+    font-size: 13px;
 }
 
 /* 15. MAXSUS YAKUN */
@@ -362,14 +365,14 @@ body {
 
 .final-screen h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-size: 24px;
     color: #ffd700;
     margin-bottom: 10px;
 }
 
 .signature {
     font-family: 'Great Vibes', cursive;
-    font-size: 36px;
+    font-size: 34px;
     color: #ff758c;
     margin-top: 15px;
 }
