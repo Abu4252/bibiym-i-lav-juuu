@@ -66,7 +66,7 @@
         .glass-card h1 {
             font-family: 'Playfair Display', serif;
             color: #ff758c;
-            font-size: 28px;
+            font-size: 26px;
             margin-bottom: 15px;
         }
 
@@ -79,7 +79,7 @@
             border-radius: 15px;
             color: white;
             text-align: center;
-            font-size: 18px;
+            font-size: 15px;
             outline: none;
             transition: 0.3s;
         }
@@ -108,7 +108,7 @@
         }
 
         /* 3. JONLI FON (Yulduzlar, Sakura, Yuraklar) */
-        .stars, .sakura-container, .heart-rain-container {
+        .stars {
             position: fixed;
             top: 0;
             left: 0;
@@ -395,8 +395,8 @@
     <div id="lockScreen" class="screen">
         <div class="glass-card">
             <h1>🔒 Faqat Bibiym Uchun</h1>
-            <p style="font-size: 13px; color: #ffb199;">Bizning maxfiy kalitimizni kiriting:</p>
-            <input type="password" id="passCode" placeholder="Maxfiy kod (0303)...">
+            <p style="font-size: 13px; color: #ffb199; margin-top: 5px;">Maxfiy kalitni kiriting:</p>
+            <input type="text" id="passCode" placeholder="abdulhodiy and robiya love">
             <button class="btn-romantic" onclick="checkCode()">Qalbimga kirish 💖</button>
             <p id="errorMsg" style="color: #ffb199; font-size: 12px; margin-top: 10px;"></p>
         </div>
@@ -497,20 +497,21 @@
     </div>
 
     <script>
-        // Maxfiy kod
-        const SECRET_CODE = "0303";
+        // Maxfiy kalit (Harflar va bo'shliqlarga e'tibor bering)
+        const SECRET_CODE = "abdulhodiy and robiya love";
 
         function checkCode() {
-            const input = document.getElementById('passCode').value;
+            const input = document.getElementById('passCode').value.trim().toLowerCase();
+            const errorMsg = document.getElementById('errorMsg');
+            
             if(input === SECRET_CODE) {
                 document.getElementById('lockScreen').classList.add('hidden');
                 document.getElementById('mainContent').style.display = 'block';
                 
-                // Animatsiyalarni boshlash
                 initAnimations();
                 startMusic();
             } else {
-                document.getElementById('errorMsg').textContent = "Noto'g'ri kalit, jonim! 0303 ni kirit.";
+                errorMsg.textContent = "Noto'g'ri kalit, jonim! 'abdulhodiy and robiya love' deb yoz.";
             }
         }
 
@@ -615,7 +616,6 @@
             document.getElementById('finalBox').style.display = 'block';
             document.getElementById('finalBox').scrollIntoView({ behavior: 'smooth' });
             
-            // Feyerverk effekti
             var duration = 3 * 1000;
             var animationEnd = Date.now() + duration;
             var interval = setInterval(function() {
