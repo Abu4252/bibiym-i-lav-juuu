@@ -150,7 +150,7 @@ animateCanvas();
 
 
 // ==========================================
-// 4. ROMANTIK SLEYDSHOU GALEREYA
+// 4. ROMANTIK SLEYDSHOU GALEREYA (6 TA RASM)
 // ==========================================
 let currentSlideIndex = 0;
 let slideInterval;
@@ -219,7 +219,6 @@ function openEnvelope() {
     let wrapper = document.getElementById('envelopeWrapper');
     wrapper.classList.add('open');
 
-    // Yurakchalar purkash effekti
     if (typeof confetti === 'function') {
         confetti({
             particleCount: 50,
@@ -253,7 +252,7 @@ function startTypewriter(text) {
 
 
 // ==========================================
-// 7. QOCHADIGAN "YO'Q" TUGMASI (10 MARTA COUNTER)
+// 7. QOCHADIGAN "YO'Q" TUGMASI (10 MARTA)
 // ==========================================
 let dodgeCount = 0;
 
@@ -274,7 +273,6 @@ function dodgeButton() {
 
 // "HA" TUGMASI BOSILGANDA
 function acceptProposal() {
-    // Confetti & Rose petals yomg'iri
     if (typeof confetti === 'function') {
         let duration = 3 * 1000;
         let animationEnd = Date.now() + duration;
@@ -294,7 +292,6 @@ function acceptProposal() {
         }, 250);
     }
 
-    // Katta yurak modalini chiqarish
     document.getElementById('finalHeartModal').style.display = 'flex';
 }
 
