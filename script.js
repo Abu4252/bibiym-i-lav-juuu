@@ -12,7 +12,7 @@ function checkCode() {
         initAnimations();
         startMusic();
     } else {
-        errorMsg.textContent = "Noto'g'ri kalit, jonim! 'abdulhodiy and robiya love' deb yoz.";
+        errorMsg.textContent = "Xato, jonim! 'abdulhodiy and robiya love' deb yoz.";
     }
 }
 
@@ -49,7 +49,7 @@ const vinyl = document.getElementById('vinylIcon');
 const playBtn = document.getElementById('playPauseBtn');
 
 function startMusic() {
-    music.volume = 0.5;
+    music.volume = 0.6;
     music.play().then(() => {
         isPlaying = true;
         vinyl.classList.add('playing');
@@ -117,15 +117,15 @@ function sayYes() {
     document.getElementById('finalBox').style.display = 'block';
     document.getElementById('finalBox').scrollIntoView({ behavior: 'smooth' });
     
-    var duration = 3 * 1000;
+    var duration = 4 * 1000;
     var animationEnd = Date.now() + duration;
     var interval = setInterval(function() {
         if (Date.now() > animationEnd) {
             return clearInterval(interval);
         }
         confetti({
-            particleCount: 100,
-            spread: 160,
+            particleCount: 120,
+            spread: 180,
             origin: { y: 0.6 }
         });
     }, 250);
