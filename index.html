@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdulhodiy & Robiya Love</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Confetti va Yurak effektlari uchun kutubxona -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <!-- 1. KOD SO'RASH QISMI -->
+    <div id="lockScreen" class="screen active">
+        <div class="glass-box">
+            <h2>🔒 Maxfiy Sevgi Sayti</h2>
+            <p>Iltimos, shaxsiy kodni kiriting:</p>
+            <input type="password" id="passCode" placeholder="Maxfiy kod...">
+            <button onclick="checkCode()">Kirish 💖</button>
+            <p id="errorMsg" class="error"></p>
+        </div>
+    </div>
+
+    <!-- 2. ROMANTIK KIRISH VA MUSIQA -->
+    <div id="introScreen" class="screen">
+        <div class="glass-box">
+            <h1>Abdulhodiy & Robiya Love 💖</h1>
+            <p>Siz uchun maxsus tayyorlangan kichik syurpriz...</p>
+            <button onclick="startSurprise()">Davom etish 🌸</button>
+        </div>
+    </div>
+
+    <!-- 3. ASOSIY SYURPRIZ VA DIL IZXORLARI -->
+    <div id="mainScreen" class="screen">
+        <!-- Fon musiqasi -->
+        <audio id="bgMusic" loop>
+            <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="content-box">
+            <h2>Salom, Robiya bibi! 🥰</h2>
+            <p class="audio-notice">Senga bir kichik syurprizim bor edi, telefoningning ovozini ko'tar! 🎶</p>
+
+            <div class="letter-box">
+                <h3>💌 Maxsus Maktub</h3>
+                <p>
+                    Jonim, bibiym, mening go'zalim... Dunyodagi eng baxtli insonman, chunki sen yonimdasan. 
+                    Har bir kunim sening kulgularing bilan nurlanadi. Seni jonimdan ortiq sevaman va bu sevgimiz mangu bo'lishini xohlayman!
+                </p>
+            </div>
+
+            <!-- Xotiralar Galereyasi -->
+            <div class="gallery">
+                <h3>📸 Eng Yaxshi Xotiralarimiz</h3>
+                <div class="photo-slider">
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=500&q=60" class="active-photo" alt="Xotira 1">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=500&q=60" alt="Xotira 2">
+                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=500&q=60" alt="Xotira 3">
+                </div>
+            </div>
+
+            <!-- Vaqt Hisoblagichi -->
+            <div class="counter-box">
+                <h3>⏳ Bizning Sevgimiz Tarixi</h3>
+                <p>03.03.2026 dan boshlangan abadiy sevgimiz:</p>
+                <div id="timer">Hisoblanmoqda...</div>
+                <p class="sub-text">Sen bilan boshlangan, sen bilan tugashini xohlayman...</p>
+            </div>
+
+            <!-- TURMUSHGA CHIQASANMI? -->
+            <div class="proposal-box">
+                <h2>💍 Robiya, menga turmushga chiqasanmi?</h2>
+                <div class="proposal-buttons">
+                    <button id="yesBtn" onclick="sayYes()">HA! 💖</button>
+                    <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">Yo'q ❌</button>
+                </div>
+                <p id="noCounterText" style="font-size: 13px; color: #ffeb3b; margin-top: 10px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. FINAL EKRANI (HA BOSILGANDA) -->
+    <div id="finalScreen" class="screen">
+        <div class="glass-box final-box">
+            <h1>🎉 URROOO! 💍💖</h1>
+            <p>Bilardim, men seni jonimdan ortiq sevaman, Bibiym!</p>
+            <p>Endi biz abadiy birgamiz! 🥰</p>
+        </div>
+    </div>
+
+    <script>
+        // Maxfiy kodni o'zingiz xohlagandek o'zgartirishingiz mumkin (Masalan: 2026 yoki bibiyim)
+        const SECRET_CODE = "0303"; 
+
+        function checkCode() {
+            const input = document.getElementById('passCode').value;
+            if(input === SECRET_CODE) {
+                document.getElementById('lockScreen').classList.remove('active');
+                document.getElementById('introScreen').classList.add('active');
+            } else {
+                document.getElementById('errorMsg').textContent = "Noto'g'ri kod! Qaytadan urinib ko'r.";
+            }
+        }
+
+        function startSurprise() {
+            document.getElementById('introScreen').classList.remove('active');
+            document.getElementById('mainScreen').classList.add('active');
+            
+            // Musiqani yoqish
+            const music = document.getElementById('bgMusic');
+            music.play().catch(e => console.log("Audio autoplay blocked"));
+
+            // Yuraklar yomg'irini boshlash
+            startHeartRain();
+        }
+
+        // Vaqt hisoblagichi (03.03.2026 dan boshlab)
+        setInterval(() => {
+            const startDate = new Date("2026-03-03T00:00:00");
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("timer").innerHTML = `${days} kun, ${hours} soat, ${minutes} daqiqa, ${seconds} soniya`;
+        }, 1000);
+
+        // Rasmlar slayd-shousi
+        let currentImg = 0;
+        const images = document.querySelectorAll('.photo-slider img');
+        setInterval(() => {
+            images[currentImg].classList.remove('active-photo');
+            currentImg = (currentImg + 1) % images.length;
+            images[currentImg].classList.add('active-photo');
+        }, 3000);
+
+        // "Yo'q" tugmasining qochishi (20 martadan keyin o'chadi)
+        let noClickCount = 0;
+        function moveNo() {
+            noClickCount++;
+            const noBtn = document.getElementById('noBtn');
+            const counterText = document.getElementById('noCounterText');
+
+            if(noClickCount < 20) {
+                const x = Math.random() * 200 - 100;
+                const y = Math.random() * 200 - 100;
+                noBtn.style.transform = `translate(${x}px, ${y}px)`;
+                counterText.textContent = `Buni bosolmaysan! (${noClickCount}/20)`;
+            } else {
+                noBtn.style.display = 'none'; // 20 martadan keyin "Yo'q" yo'qoladi
+                counterText.textContent = "Baribir faqat 'HA'ni bosishing kerak! 🥰";
+            }
+        }
+
+        // "HA" tugmasi bosilganda
+        function sayYes() {
+            document.getElementById('mainScreen').classList.remove('active');
+            document.getElementById('finalScreen').classList.add('active');
+            
+            // Atirgullar bargi va mushakbozlik effekti
+            confetti({
+                particleCount: 150,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Orqa fonda doimiy yuraklar yog'ilishi
+        function startHeartRain() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('falling-heart');
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
