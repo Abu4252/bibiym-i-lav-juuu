@@ -14,7 +14,6 @@
 
     <!-- 3D VA PARTICLES CANVAS SYSTEM -->
     <canvas id="bgCanvas"></canvas>
-    <div id="heartTrailContainer"></div>
 
     <!-- AUDIO PLAYER -->
     <audio id="bgMusic" loop preload="auto">
@@ -65,7 +64,7 @@
             </div>
         </section>
 
-        <!-- 3. ROMANTIC SLEYDSHOU (KATTA GALEREYA) -->
+        <!-- 3. ROMANTIC SLEYDSHOU (AUTO SLIDESHOW) -->
         <section class="section-block">
             <h2 class="section-heading">✨ Bizning Eng Shirin Damlarimiz</h2>
             <div class="slideshow-wrapper glass-container">
@@ -87,7 +86,7 @@
             </div>
         </section>
 
-        <!-- 4. LOVE STORY (TIMELINE / HIKOYAMIZ) -->
+        <!-- 4. LOVE STORY (TIMELINE) -->
         <section class="section-block">
             <h2 class="section-heading">📖 Bizning Hikoyamiz</h2>
             <div class="timeline">
@@ -120,8 +119,10 @@
 
         <!-- 5. OCHILADIGAN KONVERT & SEVGI MAKTUBI -->
         <section class="section-block">
-            <h2 class="section-heading">💌 Yurakdan Chiqqan Satrlar</h2>
-            <div class="envelope-container" onclick="toggleEnvelope(this)">
+            <h2 class="section-heading">💌 Yurakdan Chiqqan So'zlar</h2>
+            <p class="sub-heading">Maktubni ochish uchun ortasidagi yurakni bosing:</p>
+            
+            <div class="envelope-container" id="envelopeWrapper">
                 <div class="envelope">
                     <div class="flap"></div>
                     <div class="pocket"></div>
@@ -130,7 +131,8 @@
                             <p id="typewriterText"></p>
                         </div>
                     </div>
-                    <div class="heart-seal">❤️</div>
+                    <!-- YURAK MUHRI -->
+                    <div class="heart-seal" onclick="openEnvelope()">❤️</div>
                 </div>
             </div>
         </section>
@@ -139,14 +141,27 @@
         <section class="section-block">
             <div class="glass-container proposal-card">
                 <h2 class="romantic-font proposal-title">Menga turmushga chiqasanmi? 💍</h2>
-                <div class="proposal-buttons">
+                <div class="proposal-buttons" id="proposalBtnArea">
                     <button class="btn-yes" onclick="acceptProposal()">Ha! ❤️</button>
                     <button class="btn-no" id="btnNo" onmouseover="dodgeButton()" onclick="dodgeButton()">Yo'q 💔</button>
                 </div>
+                <p id="forcedMessage" class="forced-text" style="display: none;"></p>
             </div>
         </section>
 
-        <!-- 7. MAXSUS YAKUN -->
+        <!-- 7. MAXSUS YAKUN (KATAR YURAK ANIMATSIYASI) -->
+        <div id="finalHeartModal" class="final-modal" style="display: none;">
+            <div class="modal-content">
+                <div class="giant-beating-heart">
+                    <div class="heart-inner-text">
+                        <h2>Men bilardim!</h2>
+                        <p>Seni jonimdan ortiq sevaman! 💖</p>
+                    </div>
+                </div>
+                <button class="btn-premium" style="width: auto; padding: 10px 30px;" onclick="closeModal()">Yopish ✨</button>
+            </div>
+        </div>
+
         <footer class="final-section">
             <div class="beating-heart-huge">💗</div>
             <h2 class="final-quote">"So'nggi nafasimgacha seni sevaman..."</h2>
