@@ -1,140 +1,132 @@
-// --- 1. MAXFIY KODNI TEKSHIRISH ---
-const SECRET_CODE = "0303"; // Bibiym bilan bog'liq maxfiy kod
+// Maxfiy kalit
+const SECRET_CODE = "abdulhodiy and robiya love";
 
 function checkCode() {
-    const input = document.getElementById('passCode').value;
+    const input = document.getElementById('passCode').value.trim().toLowerCase();
     const errorMsg = document.getElementById('errorMsg');
     
-    if (input === SECRET_CODE) {
-        document.getElementById('lockScreen').classList.remove('active');
-        document.getElementById('introScreen').classList.add('active');
+    if(input === SECRET_CODE) {
+        document.getElementById('lockScreen').classList.add('hidden');
+        document.getElementById('mainContent').style.display = 'block';
+        
+        initAnimations();
+        startMusic();
     } else {
-        errorMsg.textContent = "Noto'g'ri kalit, jonim! E'tibor bilan qaytadan urinib ko'r. 🥺";
-        // Xato bo'lganda qizil nur tarqatish effekti
-        document.getElementById('passCode').style.borderColor = "#ff4757";
-        setTimeout(() => {
-            document.getElementById('passCode').style.borderColor = "rgba(255, 255, 255, 0.2)";
-        }, 1500);
+        errorMsg.textContent = "Noto'g'ri kalit, jonim! 'abdulhodiy and robiya love' deb yoz.";
     }
 }
 
-// --- 2. SYURPRIZNI BOSHLASH VA MUSIQA ---
-function startSurprise() {
-    document.getElementById('introScreen').classList.remove('active');
-    document.getElementById('mainScreen').classList.add('active');
-    
-    // Romantik fon musiqasini yoqish
-    const music = document.getElementById('bgMusic');
-    music.volume = 0.6; // Ovoz balandligini sozlash
-    music.play().catch(error => {
-        console.log("Brauzer avtomatik musiqani blokladi, foydalanuvchi harakati talab etiladi:", error);
-    });
-
-    // Orqa fonda neon yuraklar yomg'irini boshlash
-    startHeartRain();
+// Yulduzlar generatori
+const starsContainer = document.getElementById('starsContainer');
+for(let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.width = Math.random() * 3 + 'px';
+    star.style.height = star.style.width;
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+    starsContainer.appendChild(star);
 }
 
-// --- 3. VAQT HISOBLAGICHI (03.03.2026 DAN BOSHLAB) ---
+// Mouse ortidan yurak chiqishi
+document.addEventListener('mousemove', (e) => {
+    if(Math.random() > 0.3) {
+        const heart = document.createElement('div');
+        heart.classList.add('cursor-heart');
+        heart.innerHTML = '💖';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 800);
+    }
+});
+
+// Musiqa boshqaruvi
+let isPlaying = false;
+const music = document.getElementById('bgMusic');
+const vinyl = document.getElementById('vinylIcon');
+const playBtn = document.getElementById('playPauseBtn');
+
+function startMusic() {
+    music.volume = 0.5;
+    music.play().then(() => {
+        isPlaying = true;
+        vinyl.classList.add('playing');
+        playBtn.textContent = "Pause ⏸";
+    }).catch(e => console.log("Autoplay blocked"));
+}
+
+function toggleMusic() {
+    if(isPlaying) {
+        music.pause();
+        vinyl.classList.remove('playing');
+        playBtn.textContent = "Play 🎶";
+    } else {
+        music.play();
+        vinyl.classList.add('playing');
+        playBtn.textContent = "Pause ⏸";
+    }
+    isPlaying = !isPlaying;
+}
+
+// Vaqt hisoblagichi (03.03.2026 dan boshlab)
 setInterval(() => {
     const startDate = new Date("2026-03-03T00:00:00");
-    const now = new Date();
-    const diff = now - startDate;
-
-    if (diff > 0) {
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / 1000 / 60) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        const timerElement = document.getElementById("timer");
-        if (timerElement) {
-            timerElement.innerHTML = `${days} kun • ${hours} soat • ${minutes} daqiqa • ${seconds} soniya`;
-        }
-    } else {
-        const timerElement = document.getElementById("timer");
-        if (timerElement) {
-            timerElement.innerHTML = "Sevgimiz boshlanishiga oz qoldi... 💖";
-        }
+    const diff = new Date() - startDate;
+    if(diff > 0) {
+        document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        document.getElementById('minutes').textContent = Math.floor((diff / 1000 / 60) % 60);
+        document.getElementById('seconds').textContent = Math.floor((diff / 1000) % 60);
     }
 }, 1000);
 
-// --- 4. XOTIRALAR SLAYD-SHOUSI ---
-let currentImg = 0;
-const images = document.querySelectorAll('.photo-slider img');
-
-if (images.length > 0) {
-    setInterval(() => {
-        images[currentImg].classList.remove('active-photo');
-        currentImg = (currentImg + 1) % images.length;
-        images[currentImg].classList.add('active-photo');
-    }, 3500); // Har 3.5 sekundda rasm almashadi
+// Scroll paytida sectionlarni chiqarish
+function initAnimations() {
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    sections.forEach(sec => observer.observe(sec));
 }
 
-// --- 5. "YO'Q" TUGMASINING QOCHISH MANTIQI (20 MARTA) ---
-let noClickCount = 0;
-
+// "Yo'q" tugmasining qochishi
+let noCount = 0;
 function moveNo() {
-    noClickCount++;
+    noCount++;
     const noBtn = document.getElementById('noBtn');
-    const counterText = document.getElementById('noCounterText');
-
-    if (noClickCount < 20) {
-        // Tasodifiy koordinatalar bo'ylab qochish
-        const x = (Math.random() - 0.5) * 260;
-        const y = (Math.random() - 0.5) * 260;
+    const text = document.getElementById('noCounterText');
+    if(noCount < 15) {
+        const x = (Math.random() - 0.5) * 220;
+        const y = (Math.random() - 0.5) * 150;
         noBtn.style.transform = `translate(${x}px, ${y}px)`;
-        counterText.textContent = `Buni bosolmaysan, bibiym! (${noClickCount}/20)`;
+        text.textContent = `Buni bosolmaysan, bibiym! (${noCount}/15)`;
     } else {
-        // 20 martadan keyin "Yo'q" tugmasi butunlay yo'qoladi
         noBtn.style.display = 'none';
-        counterText.textContent = "Baribir faqat 'HA'ni tanlashing shart edi, chunki sen menikisan! 🥰";
+        text.textContent = "Baribir faqat 'HA'ni bosishing kerak! 🥰";
     }
 }
 
-// --- 6. "HA" TUGMASI BOSILGANDA (FINAL VA KONFETTI) ---
+// "HA" bosilganda feyerverk
 function sayYes() {
-    document.getElementById('mainScreen').classList.remove('active');
-    document.getElementById('finalScreen').classList.add('active');
+    document.getElementById('finalBox').style.display = 'block';
+    document.getElementById('finalBox').scrollIntoView({ behavior: 'smooth' });
     
-    // Ajoyib mushakbozlik va rang-barang konfettilar
-    confetti({
-        particleCount: 250,
-        spread: 120,
-        origin: { y: 0.5 },
-        colors: ['#ff416c', '#ff4b2b', '#ffffff', '#ffd700', '#ff69b4']
-    });
-
-    // Ikkinchi marta konfetti (efektni kuchaytirish uchun)
-    setTimeout(() => {
+    var duration = 3 * 1000;
+    var animationEnd = Date.now() + duration;
+    var interval = setInterval(function() {
+        if (Date.now() > animationEnd) {
+            return clearInterval(interval);
+        }
         confetti({
-            particleCount: 150,
-            angle: 60,
-            spread: 70,
-            origin: { x: 0 }
+            particleCount: 100,
+            spread: 160,
+            origin: { y: 0.6 }
         });
-        confetti({
-            particleCount: 150,
-            angle: 120,
-            spread: 70,
-            origin: { x: 1 }
-        });
-    }, 400);
-}
-
-// --- 7. ORQA FONDAGI DOIMIY YURAKLAR YOG'ILISHI ---
-function startHeartRain() {
-    setInterval(() => {
-        const heart = document.createElement('div');
-        heart.classList.add('falling-heart');
-        heart.innerHTML = '💖';
-        heart.style.left = Math.random() * window.innerWidth + 'px';
-        heart.style.animationDuration = (Math.random() * 3 + 2) + 's'; // Tushish tezligi
-        heart.style.fontSize = (Math.random() * 18 + 14) + 'px'; // Har xil o'lchamda
-        document.body.appendChild(heart);
-
-        // Xotirani band qilmasligi uchun 5 sekunddan keyin o'chirish
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
     }, 250);
 }
