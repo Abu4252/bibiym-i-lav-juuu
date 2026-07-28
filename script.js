@@ -6,23 +6,16 @@ function checkCode() {
     let errorMsg = document.getElementById('errorMsg');
     let lockCard = document.querySelector('.lock-card');
 
-    // Kodni tekshirish
     if (input === "abdulhodiy and robiya love" || input === "1234" || input === "") {
-        // Muvaffaqiyatli kirish
         let lockScreen = document.getElementById('lockScreen');
         lockScreen.style.opacity = '0';
         
         setTimeout(() => {
             lockScreen.style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
-            
-            // Musiqani ishga tushirish (Autoplay bloki yengiladi)
             startAudio();
-            
-            // Sleydshouni boshlash
             initSlideshow();
             
-            // Confetti bayrami
             if (typeof confetti === 'function') {
                 confetti({
                     particleCount: 120,
@@ -33,7 +26,6 @@ function checkCode() {
         }, 800);
 
     } else {
-        // Xato parol kiritilganda
         errorMsg.innerText = "Parolni xato yozding jonginam 💖";
         lockCard.classList.add('shake-card');
         
@@ -43,16 +35,13 @@ function checkCode() {
     }
 }
 
-// Enter tugmasi bosilganda ham parolni tekshirish
 document.getElementById('passCode').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        checkCode();
-    }
+    if (e.key === 'Enter') checkCode();
 });
 
 
 // ==========================================
-// 2. MUSIQA PLAYER (AUDIO WIDGET)
+// 2. MUSIQA PLAYER
 // ==========================================
 let audio = document.getElementById('bgMusic');
 let vinyl = document.getElementById('vinylRecord');
@@ -63,7 +52,6 @@ function startAudio() {
         vinyl.style.animationPlayState = 'running';
         playBtn.innerText = "⏸";
     }).catch((error) => {
-        console.log("Audio play error:", error);
         playBtn.innerText = "▶️";
     });
 }
@@ -97,7 +85,6 @@ resizeCanvas();
 let stars = [];
 let mouseHearts = [];
 
-// Yulduzlar klassi
 class Star {
     constructor() {
         this.x = Math.random() * canvas.width;
@@ -110,10 +97,8 @@ class Star {
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
-
         if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-
         this.alpha += (Math.random() - 0.5) * 0.02;
         if (this.alpha < 0.2) this.alpha = 0.2;
         if (this.alpha > 1) this.alpha = 1;
@@ -126,12 +111,8 @@ class Star {
     }
 }
 
-// 120 ta yulduz yaratish
-for (let i = 0; i < 120; i++) {
-    stars.push(new Star());
-}
+for (let i = 0; i < 120; i++) stars.push(new Star());
 
-// Mouse kursoridan yuraklar uchib chiqishi
 window.addEventListener('mousemove', (e) => {
     if (Math.random() < 0.25) {
         mouseHearts.push({
@@ -144,17 +125,11 @@ window.addEventListener('mousemove', (e) => {
     }
 });
 
-// Canvas animatsiya sikli
 function animateCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Yulduzlarni chizish
-    stars.forEach(star => {
-        star.update();
-        star.draw();
-    });
+    stars.forEach(star => { star.update(); star.draw(); });
 
-    // Yurakchalarni chizish
     for (let i = mouseHearts.length - 1; i >= 0; i--) {
         let h = mouseHearts[i];
         h.y -= h.speedY;
@@ -189,9 +164,7 @@ function showSlide(index) {
     let slides = document.getElementsByClassName("slide-item");
     if (slides.length === 0) return;
 
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
+    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
 
     if (index >= slides.length) currentSlideIndex = 0;
     if (index < 0) currentSlideIndex = slides.length - 1;
@@ -238,16 +211,27 @@ updateLoveCounter();
 
 
 // ==========================================
-// 6. KONVERT VA TYPEWRITER (SEVGI MAKTUBI)
+// 6. YURAKLI KONVERT VA SEVGI MAKTUBI
 // ==========================================
 let isLetterOpened = false;
 
-function toggleEnvelope(element) {
-    element.classList.toggle('open');
+function openEnvelope() {
+    let wrapper = document.getElementById('envelopeWrapper');
+    wrapper.classList.add('open');
+
+    // Yurakchalar purkash effekti
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 50,
+            spread: 60,
+            origin: { y: 0.7 },
+            colors: ['#ff4d6d', '#ff758f', '#ffffff']
+        });
+    }
 
     if (!isLetterOpened) {
         isLetterOpened = true;
-        let message = "Siz mening eng go'zal va begubor orzuyimsiz. Qalbimdagi har bir urish faqat siz uchun. Hayotimda borligingiz uchun rahmat, Robiya Bibiyim! ❤️";
+        let message = "Siz mening hayotimdagi eng buyuk mo'jizam va qalbimdagi yagona baxtimsiz. Har bir kunim siz bilan nurli va mazmunli. Robiyam, men sizni so'nggi nafasimgacha jonimdan ortiq sevaman! ❤️";
         startTypewriter(message);
     }
 }
@@ -261,7 +245,7 @@ function startTypewriter(text) {
         if (i < text.length) {
             target.innerHTML += text.charAt(i);
             i++;
-            setTimeout(typeChar, 45);
+            setTimeout(typeChar, 40);
         }
     }
     typeChar();
@@ -269,24 +253,51 @@ function startTypewriter(text) {
 
 
 // ==========================================
-// 7. PROPOSAL (QOCHADIGAN "YO'Q" TUGMASI)
+// 7. QOCHADIGAN "YO'Q" TUGMASI (10 MARTA COUNTER)
 // ==========================================
+let dodgeCount = 0;
+
 function dodgeButton() {
+    dodgeCount++;
     let btn = document.getElementById('btnNo');
-    let randomX = (Math.random() - 0.5) * 250;
-    let randomY = (Math.random() - 0.5) * 120;
-    
-    btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+    if (dodgeCount >= 10) {
+        btn.style.display = 'none';
+        document.getElementById('forcedMessage').innerText = "Baribir HA ni bosasiz, asalim! 😉❤️";
+        document.getElementById('forcedMessage').style.display = 'block';
+    } else {
+        let x = (Math.random() - 0.5) * 260;
+        let y = (Math.random() - 0.5) * 140;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+    }
 }
 
+// "HA" TUGMASI BOSILGANDA
 function acceptProposal() {
+    // Confetti & Rose petals yomg'iri
     if (typeof confetti === 'function') {
-        confetti({
-            particleCount: 200,
-            spread: 100,
-            origin: { y: 0.5 }
-        });
+        let duration = 3 * 1000;
+        let animationEnd = Date.now() + duration;
+
+        let interval = setInterval(function() {
+            let timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return clearInterval(interval);
+
+            confetti({
+                particleCount: 40,
+                startVelocity: 30,
+                spread: 360,
+                ticks: 60,
+                origin: { x: Math.random(), y: Math.random() - 0.2 },
+                colors: ['#ff4d6d', '#ff758f', '#ffb3c1', '#ffffff']
+            });
+        }, 250);
     }
 
-    alert("Sizni dunyodagi eng baxtli inson qilishga va'da beraman! Sevgingiz uchun rahmat! 💍💖");
+    // Katta yurak modalini chiqarish
+    document.getElementById('finalHeartModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('finalHeartModal').style.display = 'none';
 }
