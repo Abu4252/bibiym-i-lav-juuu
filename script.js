@@ -6,7 +6,8 @@ function checkCode() {
     let errorMsg = document.getElementById('errorMsg');
     let lockCard = document.querySelector('.lock-card');
 
-    if (input === "abdulhodiy and robiya love" || input === "1234" || input === "") {
+    // ANIQ PAROL: abdulhodiy and robiya love (yoki 1234)
+    if (input === "abdulhodiy and robiya love" || input === "1234") {
         let lockScreen = document.getElementById('lockScreen');
         lockScreen.style.opacity = '0';
         
@@ -26,19 +27,20 @@ function checkCode() {
         }, 800);
 
     } else {
-        errorMsg.innerText = "Parolni xato yozding jonginam 💖";
-        lockCard.classList.add('shake-card');
+        // XATO TERILGANDA CHIQADIGAN YOZUV
+        errorMsg.innerText = "Adashdiz jonginam 💖";
         
-        setTimeout(() => {
-            lockCard.classList.remove('shake-card');
-        }, 400);
+        // Kartani qimirlatib xatolikni ko'rsatish
+        lockCard.classList.remove('shake-card');
+        void lockCard.offsetWidth; // Animatsiyani qayta ishga tushirish uchun
+        lockCard.classList.add('shake-card');
     }
 }
 
+// Enter tugmasi bosilganda ham tekshirish
 document.getElementById('passCode').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') checkCode();
 });
-
 
 // ==========================================
 // 2. MUSIQA PLAYER
