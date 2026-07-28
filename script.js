@@ -232,7 +232,7 @@ function openEnvelope() {
     if (!isLetterOpened) {
         isLetterOpened = true;
         
-        // Maktub ichidagi matn va she'r
+        // Maktub ichidagi so'zlar va to'liq she'r
         let message = "Siz mening hayotimdagi eng buyuk mo'jizam va qalbimdagi yagona baxtimsiz. Robiyam, men sizni so'nggi nafasimgacha jonimdan ortiq sevaman! ❤️\n\nSen ila bu ko'nglim shod bo'lsa kerak,\nHar on ko'rgim kelar seni negadir.\nShuning uchun isming-la uradi yurak,\nIshqiy xabarlarim tanho sengadir... 🫶🏻";
         
         startTypewriter(message);
@@ -247,14 +247,13 @@ function startTypewriter(text) {
     function typeChar() {
         if (i < text.length) {
             let char = text.charAt(i);
-            // Qator tashlash (\n) belgisini HTML <br> ga aylantirish
             if (char === '\n') {
                 target.innerHTML += '<br>';
             } else {
                 target.innerHTML += char;
             }
             i++;
-            setTimeout(typeChar, 35);
+            setTimeout(typeChar, 30);
         }
     }
     typeChar();
